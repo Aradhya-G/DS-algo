@@ -1,18 +1,6 @@
-/**
-Reference: https://leetcode.com/problems/sort-characters-by-frequency/
-In an array of n elements with some duplicate values. We have to sort the array in ascending order of the
-frequency.
-Examples:
-Input : [1,2,3,2,3,3,2,3,3,4,4]
-Output : [1,4,4,2,2,2,3,3,3,3]
-
-Time Complexity:LO(nlogk)LwhereLnLisLtheLnumberLofLelementsLandLkLisLtheLnumberLofLdistinctLelements.
-Space Complexity:LO(k)K
- */
 class Heap {
-    constructor(comparator) {
+    constructor() {
         this.data = [];
-        this.comparator = comparator;
     }
 
     swap(index1, index2) {
@@ -69,7 +57,6 @@ class Heap {
         this.bottomUp(this.data.length - 1);
     }
 
-    // delete top element
     poll() {
         if (this.size() <= 0) return;
 
@@ -82,42 +69,58 @@ class Heap {
 
         data[0] = data[data.length - 1];
         data.pop();
-
         this.topBottom(0);
+    }
+
+    comparator(a, b) {
+        return a[1] > b[1];
     }
 }
 
-var frequencySort = function (nums) {
-    const frequency = {};
-    const result = [];
 
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] in frequency) {
-            frequency[nums[i]]++;
-        } else {
-            frequency[nums[i]] = 1;
+function leastInterval(arr, x) {
+    let counter = {};
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] in counter) {
+            counter[arr[i]]++;
+        }
+        else {
+            counter[arr[i]] = 1;
         }
     }
+    const heap = new Heap();
 
-    const comparator = (a, b) => {
-        return a[1] < b[1];
-    };
-    const heap = new Heap(comparator);
-
-    for (let key in frequency) {
-        heap.add([key, frequency[key]]);
+    for (let key in counter) {
+        heap.add([key, counter[key]])
     }
+
+    let result = [];
 
     while (heap.size() > 0) {
-        let val = heap.peek();
-        console.log(val);
-        heap.poll();
-        for (let i = 0; i < val[1]; i++) {
-            result.push(val[0]);
+        let backup = [];
+
+        for (let i = 0; i <= x; i++) {
+            if (heap.size() > 0) {
+                let root = heap.peek();
+                result.push(root[0]);
+                heap.poll();
+                root[1]--;
+                if (root[1] > 0) {
+                    backup.push(root);
+                }
+            } else {
+                result.push("idle")
+            }
+            if (heap.size() == 0 && backup.length == 0) {
+                break;
+            }
+        }
+        for (let key in backup) {
+            heap.add(backup[key])
         }
     }
-    return result;
-};
+    return result
+}
+const emp = ["A", "A", "A", "A", "A", "A", "B", "C", "D", "E", "E", "E"];
 
-let arr = [1, 2, 2, 2, 3, 3, 3, 3, 4];
-console.log(frequencySort(arr));
+console.log(leastInterval(emp, 5));

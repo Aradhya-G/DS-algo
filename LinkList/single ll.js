@@ -31,24 +31,24 @@ class SingleLL{
 
 	}
 
-	// append(value){
-	// 	let newNode = new SingleLLNode(value);
-	// 	let temp = this.tail;
+	append(value){
+		let newNode = new SingleLLNode(value);
+		let temp = this.tail;
 
-	// 	temp.next = newNode;
-	// 	this.tail = newNode;
-	// 	this.length++;
-	// 	return this.printList()
-	// }
+		temp.next = newNode;
+		this.tail = newNode;
+		this.length++;
+		return this.printList()
+	}
 
-	// insertAt(position, value){
-	// 	if(position === 0){
-	// 		return this.prepend(value)
-	// 	}
-	// 	if(position === this.length-1){
-	// 		return this.append(value);
-	// 	}
-	// }
+	insertAt(position, value){
+		if(position === 0){
+			return this.prepend(value)
+		}
+		if(position === this.length-1){
+			return this.append(value);
+		}
+	}
 
 	printList(){
 		let temp = this.head;
@@ -62,5 +62,5 @@ class SingleLL{
 const ll = new SingleLL()
 ll.prepend(6);
 ll.prepend(8);
-//ll.append(6)
+ll.append(9)
 console.log("LL", ll) 

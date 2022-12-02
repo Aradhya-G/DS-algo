@@ -1,22 +1,22 @@
-class LLNode{
-	constructor(value){
+class LLNode {
+	constructor(value) {
 		this.value = value;
 		this.next = null;
 	}
 }
 
-class SingleLL{
-	constructor(){
+class SingleLL {
+	constructor() {
 		this.head = null;
 		this.tail = this.head;
 		this.length = 0;
 	}
 
-	size(){
+	size() {
 		return `hello I am LL, My Size is ${this.length}`;
 	}
 
-	append(value){
+	append(value) {
 		const newNode = new LLNode(value);
 		const lastNode = this.tail;
 		lastNode.next = newNode;
@@ -25,14 +25,14 @@ class SingleLL{
 		return this.printList()
 	}
 
-	prepend(value){
+	prepend(value) {
 		const newNode = new LLNode(value);
-		if(!this.head){
+		if (!this.head) {
 			this.head = newNode;
 			this.tail = newNode;
 			this.length++;
 			return this.printList();
-		}else{
+		} else {
 			newNode.next = this.head;
 			this.head = newNode;
 			this.length++;
@@ -41,10 +41,10 @@ class SingleLL{
 
 	}
 
-	printList(){
+	printList() {
 		let current = this.head;
 		console.log('LL', current);
-		while(current){
+		while (current) {
 			console.log(current.value)
 			console.log('--->');
 			current = current.next;
@@ -52,15 +52,15 @@ class SingleLL{
 		return 'No LL exists'
 	}
 
-	insertAt(position, data){
-		if(position === 0){
+	insertAt(position, data) {
+		if (position === 0) {
 			return this.prepend(data);
-		}else if(position === this.length-1){
+		} else if (position === this.length - 1) {
 			return this.append(data)
-		}else{
+		} else {
 			let i = 0;
-			let prev,current = this.head;
-			while(position > i){
+			let prev, current = this.head;
+			while (position > i) {
 				prev = current;
 				current = current.next;
 				i++;
@@ -74,15 +74,15 @@ class SingleLL{
 		}
 	}
 
-	getElementAtIndex(pos){
-		if(pos < 0 || pos > this.length){
+	getElementAtIndex(pos) {
+		if (pos < 0 || pos > this.length) {
 			return `hey, I don't have this index`
 		}
 		let i = 0;
 		let current = this.head;
-		while(current){
-			if(i === pos){
-				console.log('he;;;',current.value)
+		while (current) {
+			if (i === pos) {
+				console.log('he;;;', current.value)
 				return current.value
 			}
 			current = current.next;
@@ -91,24 +91,24 @@ class SingleLL{
 
 	}
 
-	removeAtStart(){
-		if(!this.head){
+	removeAtStart() {
+		if (!this.head) {
 			return false
-		}else{
+		} else {
 			let removeNode = this.head;
 			this.head = removeNode.next;
 			removeNode = null;
 			this.length--;
-			return this.printList() 
+			return this.printList()
 		}
 	}
 
-	removeAtEnd(){
+	removeAtEnd() {
 		let prev, current = this.head;
-		while(current.next){
+		while (current.next) {
 			prev = current
 			current = current.next;
-		}	
+		}
 		current = null;
 		prev.next = null;
 		this.tail = prev;
@@ -116,16 +116,16 @@ class SingleLL{
 		return this.printList();
 
 	}
-	removeAt(pos){
-		if(pos == 0){
+	removeAt(pos) {
+		if (pos == 0) {
 			return this.removeAtStart()
-		}else if(pos === this.length){
+		} else if (pos === this.length) {
 			return this.removeAtEnd()
 		}
-		else{
+		else {
 			let prev, current = this.head;
 			let count = 0;
-			while(count < pos){
+			while (count < pos) {
 				prev = current;
 				current = current.next;
 				count++;
@@ -137,7 +137,7 @@ class SingleLL{
 			return this.printList()
 		}
 	}
- }
+}
 
 const ll = new SingleLL()
 ll.prepend(4);
@@ -146,7 +146,7 @@ ll.prepend(6);
 ll.append(8);
 ll.append(9);
 //ll.append(10);
-ll.insertAt(3,10);
+ll.insertAt(3, 10);
 //ll.getElementAtIndex(3)
 // ll.removeAtEnd()
 // ll.removeAt(2)
